@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import debounce from "awesome-debounce-promise";
 import tmdb from "./tmdb";
 import NavigationBar from "./NavigationBar";
@@ -16,6 +17,7 @@ class App extends Component {
     this.state = {
       results: [],
       err: "",
+      searching: false,
     };
   }
 
@@ -23,6 +25,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavigationBar classes={{}} search={e => this.handleQueryChange(e.target.value)} />
+        <LinearProgress hidden={!this.state.searching} variant="query" />
 
         <MovieGrid classes={{}} movies={this.state.results} />
       </div>
@@ -35,6 +38,7 @@ class App extends Component {
       return;
     }
 
+    this.setState({ searching: true });
     const response = await searchDebounced(query);
 
     const body = await response.json();
@@ -44,6 +48,8 @@ class App extends Component {
       this.setState({ err: `Unable to connect to API.\n${body["status_message"]}` });
       console.err(body);
     }
+
+    this.setState({ searching: false });
   }
 }
 
