@@ -18,7 +18,12 @@ class MovieGrid extends Component {
 
     return (
       <div className={classes.root}>
-        <GridList cellHeight={250} cols={this.getGridListCols()} spacing={10} className={classes.gridList}>
+        <GridList
+          cellHeight={250}
+          cols={this.getGridListCols()}
+          spacing={10}
+          className={classes.gridList}
+        >
           {movies.map(movie => (
             <GridListTile key={movie.id}>
               <ReactImageFallback
@@ -70,24 +75,24 @@ const styles = theme => ({
     flexWrap: "wrap",
     justifyContent: "start",
     overflow: "hidden",
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper
   },
   image: {
     height: "100%",
     width: "100%",
-    maxWidth: "200px",
+    maxWidth: "200px"
   },
   title: {
-    background: "rgba(0, 0, 0, 0.91)",
+    background: "rgba(0, 0, 0, 0.91)"
   },
   icon: {
-    color: "rgba(255, 255, 255, 0.71)",
-  },
+    color: "rgba(255, 255, 255, 0.71)"
+  }
 });
 
 MovieGrid.propTypes = {
   classes: PropTypes.object.isRequired,
-  movies: PropTypes.array.isRequired,
+  movies: PropTypes.array.isRequired
 };
 
 export default withWidth()(withStyles(styles)(MovieGrid));
