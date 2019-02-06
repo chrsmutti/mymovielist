@@ -1,0 +1,26 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended", "google"],
+  "plugins": ["react"],
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "globals": { "fetch": false, "document": false },
+  "rules": {
+    "object-curly-spacing": ["error", "always"],
+    "quotes": ["error", "double"],
+    "arrow-parens": ["error", "as-needed"],
+    "indent": ["error", 2],
+    "require-jsdoc": "off",
+    "quote-props": ["error", "as-needed"]
+  }
+}

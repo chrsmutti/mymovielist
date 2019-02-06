@@ -9,6 +9,8 @@ import ReactImageFallback from "react-image-fallback";
 import IconButton from "@material-ui/core/IconButton";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 
+import styles from "./MovieGrid.style";
+
 const imageBaseUrl = "https://image.tmdb.org/t/p/original";
 const image = path => (path ? `${imageBaseUrl}${path}` : "fallback-image.jpg");
 
@@ -68,31 +70,10 @@ class MovieGrid extends Component {
   }
 }
 
-const styles = theme => ({
-  root: {
-    padding: "1rem",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "start",
-    overflow: "hidden",
-    backgroundColor: theme.palette.background.paper
-  },
-  image: {
-    height: "100%",
-    width: "100%",
-    maxWidth: "200px"
-  },
-  title: {
-    background: "rgba(0, 0, 0, 0.91)"
-  },
-  icon: {
-    color: "rgba(255, 255, 255, 0.71)"
-  }
-});
-
 MovieGrid.propTypes = {
   classes: PropTypes.object.isRequired,
-  movies: PropTypes.array.isRequired
+  movies: PropTypes.array.isRequired,
+  width: PropTypes.number,
 };
 
 export default withWidth()(withStyles(styles)(MovieGrid));

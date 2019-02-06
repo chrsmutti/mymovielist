@@ -1,18 +1,12 @@
 import React, { Component } from "react";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import debounce from "awesome-debounce-promise";
-import tmdb from "./tmdb";
-import NavigationBar from "./NavigationBar";
-import MovieGrid from "./MovieGrid";
-
-import "./App.css";
+import TMDB from "../../config/tmdb";
+import NavigationBar from "../NavigationBar/NavigationBar";
+import MovieGrid from "../MovieGrid/MovieGrid";
 
 const search = query =>
-  fetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=${
-      tmdb.api_key
-    }&query=${query}`
-  );
+  fetch(`${TMDB.api_url}?api_key=${TMDB.api_key}&query=${query}`);
 const searchDebounced = debounce(search, 1000);
 
 class App extends Component {
@@ -22,7 +16,7 @@ class App extends Component {
     this.state = {
       results: [],
       err: "",
-      searching: false
+      searching: false,
     };
   }
 
@@ -54,9 +48,8 @@ class App extends Component {
       this.setState({ results: body.results });
     } else {
       this.setState({
-        err: `Unable to connect to API.\n${body["status_message"]}`
+        err: `Unable to connect to API.\n${body["status_message"]}`,
       });
-      console.err(body);
     }
 
     this.setState({ searching: false });
