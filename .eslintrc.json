@@ -21,6 +21,7 @@
     "arrow-parens": ["error", "as-needed"],
     "indent": ["error", 2],
     "require-jsdoc": "off",
-    "quote-props": ["error", "as-needed"]
+    "quote-props": ["error", "as-needed"],
+    "sort-imports": "off"
   }
 }

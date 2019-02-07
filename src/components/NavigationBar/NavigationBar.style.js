@@ -34,13 +34,14 @@ export default theme => ({
     },
   },
   favorites: {
-    color: "rgb(255, 255, 255)",
+    color: "#ffffff",
   },
   movieIcon: {
     padding: "0 10px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: "3px",
   },
   searchIcon: {
     width: theme.spacing.unit * 9,

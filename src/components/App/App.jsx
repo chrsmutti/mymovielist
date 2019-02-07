@@ -1,13 +1,8 @@
-import React, { Component } from "react";
+import { fetchMovies } from "../../services/tmdb";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import debounce from "awesome-debounce-promise";
-import TMDB from "../../config/tmdb";
-import NavigationBar from "../NavigationBar/NavigationBar";
 import MovieGrid from "../MovieGrid/MovieGrid";
-
-const search = query =>
-  fetch(`${TMDB.api_url}?api_key=${TMDB.api_key}&query=${query}`);
-const searchDebounced = debounce(search, 1000);
+import NavigationBar from "../NavigationBar/NavigationBar";
+import React, { Component } from "react";
 
 class App extends Component {
   constructor(props) {
@@ -23,36 +18,24 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavigationBar
-          classes={{}}
-          search={e => this.handleQueryChange(e.target.value)}
-        />
+        <NavigationBar search={e => this.handleQueryChange(e)} />
         <LinearProgress hidden={!this.state.searching} variant="query" />
 
-        <MovieGrid classes={{}} movies={this.state.results} />
+        <MovieGrid movies={this.state.results} />
       </div>
     );
   }
 
-  async handleQueryChange(query) {
-    if (!query || query.length === 0) {
-      this.setState({ results: [] });
-      return;
-    }
-
+  /**
+   * Handle query changed.
+   *
+   * @param {InputEvent} event Input changed event.
+   * @memberof App
+   */
+  async handleQueryChange(event) {
     this.setState({ searching: true });
-    const response = await searchDebounced(query);
-
-    const body = await response.json();
-    if (response.ok) {
-      this.setState({ results: body.results });
-    } else {
-      this.setState({
-        err: `Unable to connect to API.\n${body["status_message"]}`,
-      });
-    }
-
-    this.setState({ searching: false });
+    const results = await fetchMovies(event.target.value);
+    this.setState({ results, searching: false });
   }
 }
 

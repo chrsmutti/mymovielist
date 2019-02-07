@@ -11,6 +11,8 @@ export default theme => ({
     height: "100%",
     width: "100%",
     maxWidth: "200px",
+    display: "block",
+    margin: "0 auto",
   },
   title: {
     background: "rgba(0, 0, 0, 0.91)",

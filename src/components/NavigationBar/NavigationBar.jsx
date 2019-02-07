@@ -1,16 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
+import IconButton from "@material-ui/core/IconButton";
+import InputBase from "@material-ui/core/InputBase";
+import MovieIcon from "@material-ui/icons/Movie";
+import PropTypes from "prop-types";
+import SearchIcon from "@material-ui/icons/Search";
+import StarIcon from "@material-ui/icons/Star";
+import styles from "./NavigationBar.style";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import { withStyles } from "@material-ui/core/styles";
-import SearchIcon from "@material-ui/icons/Search";
-import MovieIcon from "@material-ui/icons/Movie";
-import IconButton from "@material-ui/core/IconButton";
-import StarIcon from "@material-ui/icons/Star";
-
-import styles from "./NavigationBar.style";
+import React, { Component } from "react";
 
 class NavigationBar extends Component {
   render() {
@@ -26,12 +25,11 @@ class NavigationBar extends Component {
               color="inherit"
               noWrap
             >
-              <span className={classes.movieIcon}>
-                <MovieIcon />
-              </span>{" "}
-              My Movie List
+              <MovieIcon className={classes.movieIcon} /> My Movie List
             </Typography>
+
             <div className={classes.grow} />
+
             <IconButton className={classes.favorites}>
               <StarIcon />
             </IconButton>
@@ -56,8 +54,8 @@ class NavigationBar extends Component {
 }
 
 NavigationBar.propTypes = {
-  classes: PropTypes.object.isRequired,
   search: PropTypes.func.isRequired,
+  classes: PropTypes.object,
 };
 
 export default withStyles(styles)(NavigationBar);

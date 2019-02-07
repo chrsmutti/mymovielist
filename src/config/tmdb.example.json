@@ -1,4 +1,5 @@
 {
   "api_url": "https://api.themoviedb.org/3/search/movie",
-  "api_key": "<TMDB_API_KEY>"
+  "api_key": "<TMDB_API_KEY>",
+  "image_url": "https://image.tmdb.org/t/p/original"
 }
