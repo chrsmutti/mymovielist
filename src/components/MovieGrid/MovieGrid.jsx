@@ -23,6 +23,7 @@ class MovieGrid extends Component {
               <ReactImageFallback
                 src={getImage(movie.poster_path)}
                 fallbackImage="fallback-image.jpg"
+                initialImage="fallback-image.jpg"
                 alt={movie.title}
                 className={classes.image}
               />
