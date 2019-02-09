@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import React, { Component } from "react";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import GitHubIcon from "../Extras/GithubIcon";
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -32,7 +33,14 @@ class NavigationBar extends Component {
 
             <div className={classes.grow} />
 
-            <IconButton className={classes.favorites}>
+            <IconButton
+              href="https://github.com/chrsmutti/mymovielist"
+              target="_blank"
+              className={classes.iconButton}
+            >
+              <GitHubIcon />
+            </IconButton>
+            <IconButton className={classes.iconButton}>
               <StarIcon />
             </IconButton>
             <div className={classes.search}>

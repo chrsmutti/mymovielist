@@ -20,7 +20,7 @@ class TMDBService {
    */
   async fetchMovies(query, page) {
     if (!query || query.length === 0) {
-      return [];
+      return { results: [], hasNext: false };
     }
 
     const response = await search(query, page);

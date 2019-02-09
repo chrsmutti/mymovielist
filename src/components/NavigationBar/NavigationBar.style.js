@@ -33,7 +33,7 @@ export default theme => ({
       width: "auto",
     },
   },
-  favorites: {
+  iconButton: {
     color: "#ffffff",
   },
   movieIcon: {
