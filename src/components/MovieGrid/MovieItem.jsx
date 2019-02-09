@@ -1,4 +1,4 @@
-import { getImage } from "../../services/tmdb";
+import { service as TMDBService } from "../../services/tmdb";
 import GridListTile from "@material-ui/core/GridListTile";
 import PropTypes from "prop-types";
 import ReactImageFallback from "react-image-fallback";
@@ -12,27 +12,28 @@ class MovieItem extends Component {
     const { movie, classes } = this.props;
 
     return (
-      <GridListTile key={movie.id} className={classes.gridListTileRoot}>
-        <div className={classes.gridListTile}>
-          <ReactImageFallback
-            src={getImage(movie.poster_path)}
-            fallbackImage="fallback-image.jpg"
-            initialImage="fallback-image.jpg"
-            alt={movie.title}
-            className={classes.image}
-          />
+      <GridListTile
+        key={movie.id}
+        classes={{ root: classes.gridListTileRoot, tile: classes.gridListTile }}
+      >
+        <ReactImageFallback
+          src={TMDBService.getImage(movie.poster_path)}
+          fallbackImage="fallback-image.jpg"
+          initialImage="fallback-image.jpg"
+          alt={movie.title}
+          className={classes.image}
+        />
 
-          <GridListTileBar
-            className={classes.title}
-            title={movie.title}
-            subtitle={<span>{movie.release_date}</span>}
-            actionIcon={
-              <IconButton className={classes.icon}>
-                <StarBorderIcon />
-              </IconButton>
-            }
-          />
-        </div>
+        <GridListTileBar
+          className={classes.title}
+          title={movie.title}
+          subtitle={<span>{movie.release_date}</span>}
+          actionIcon={
+            <IconButton className={classes.icon}>
+              <StarBorderIcon />
+            </IconButton>
+          }
+        />
       </GridListTile>
     );
   }

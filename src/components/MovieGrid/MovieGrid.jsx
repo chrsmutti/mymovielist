@@ -5,10 +5,16 @@ import { withStyles } from "@material-ui/core/styles";
 import React, { Component } from "react";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 import MovieItem from "./MovieItem";
+import LoadMore from "./LoadMore";
 
 class MovieGrid extends Component {
   render() {
-    const { classes, movies } = this.props;
+    const { classes, movies, hasNext, onLoadMore } = this.props;
+
+    let next;
+    if (hasNext && movies.length > 0) {
+      next = <LoadMore classes={classes} onClick={() => onLoadMore()} />;
+    }
 
     return (
       <div className={classes.root}>
@@ -21,6 +27,8 @@ class MovieGrid extends Component {
           {movies.map(movie => (
             <MovieItem key={movie.id} movie={movie} classes={classes} />
           ))}
+
+          {next}
         </GridList>
       </div>
     );
@@ -45,6 +53,8 @@ class MovieGrid extends Component {
 
 MovieGrid.propTypes = {
   movies: PropTypes.array.isRequired,
+  onLoadMore: PropTypes.func.isRequired,
+  hasNext: PropTypes.bool.isRequired,
   classes: PropTypes.object,
   width: PropTypes.string,
 };

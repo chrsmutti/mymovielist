@@ -1,44 +1,27 @@
-import { fetchMovies } from "../../services/tmdb";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import { service as TMDBService } from "../../services/tmdb";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import React, { Component } from "react";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-
-const theme = createMuiTheme({
-  typography: {
-    useNextVariants: true,
-  },
-  palette: {
-    type: "dark",
-    primary: {
-      main: "#d32f2f",
-    },
-    secondary: {
-      main: "#bf360c",
-    },
-  },
-});
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import theme from "./App.theme";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      results: [],
-      err: "",
-      searching: false,
-    };
+    this.state = { hasNext: true, results: [] };
   }
 
   render() {
     return (
       <div className="App">
         <MuiThemeProvider theme={theme}>
-          <NavigationBar search={e => this.handleQueryChange(e)} />
-          <LinearProgress hidden={!this.state.searching} variant="query" />
-
-          <MovieGrid movies={this.state.results} />
+          <NavigationBar search={q => this.handleQueryChange(q)} />
+          <MovieGrid
+            movies={this.state.results}
+            hasNext={this.state.hasNext}
+            onLoadMore={() => this.handleNextPage()}
+          />
         </MuiThemeProvider>
       </div>
     );
@@ -47,13 +30,25 @@ class App extends Component {
   /**
    * Handle query changed.
    *
-   * @param {InputEvent} event Input changed event.
+   * @param {string} query Query.
    * @memberof App
    */
-  async handleQueryChange(event) {
-    this.setState({ searching: true });
-    const results = await fetchMovies(event.target.value);
-    this.setState({ results, searching: false });
+  async handleQueryChange(query) {
+    this.setState({ query, page: 1 });
+    const { results, hasNext } = await TMDBService.fetchMovies(query, 1);
+    this.setState({ hasNext, results });
+  }
+
+  /**
+   * Handle next page request.
+   *
+   * @memberof App
+   */
+  async handleNextPage() {
+    const { query, page } = this.state;
+    this.setState({ page: page + 1 });
+    const { results, hasNext } = await TMDBService.fetchMovies(query, page + 1);
+    this.setState({ hasNext, results: this.state.results.concat(results) });
   }
 }
 

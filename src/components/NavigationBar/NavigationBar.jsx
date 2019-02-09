@@ -10,10 +10,17 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import React, { Component } from "react";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 class NavigationBar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { searching: false };
+  }
+
   render() {
-    const { classes, search } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>
@@ -34,17 +41,28 @@ class NavigationBar extends Component {
               </div>
               <InputBase
                 placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                onChange={search}
+                classes={{ root: classes.inputRoot, input: classes.inputInput }}
+                onChange={e => this.handleQueryChange(e)}
               />
             </div>
           </Toolbar>
+
+          <LinearProgress hidden={!this.state.searching} variant="query" />
         </AppBar>
       </div>
     );
+  }
+
+  /**
+   * Handle a input text changed event.
+   *
+   * @param {InputEvent} e Input event.
+   * @memberof NavigationBar
+   */
+  async handleQueryChange(e) {
+    this.setState({ searching: true });
+    await this.props.search(e.target.value);
+    this.setState({ searching: false });
   }
 }
 
