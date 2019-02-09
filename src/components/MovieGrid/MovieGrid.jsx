@@ -1,15 +1,10 @@
-import { getImage } from "../../services/tmdb";
 import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import IconButton from "@material-ui/core/IconButton";
 import PropTypes from "prop-types";
-import ReactImageFallback from "react-image-fallback";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
 import styles from "./MovieGrid.style";
 import { withStyles } from "@material-ui/core/styles";
 import React, { Component } from "react";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
+import MovieItem from "./MovieItem";
 
 class MovieGrid extends Component {
   render() {
@@ -17,28 +12,14 @@ class MovieGrid extends Component {
 
     return (
       <div className={classes.root}>
-        <GridList cellHeight={250} cols={this.getGridListCols()} spacing={10}>
+        <GridList
+          className={classes.gridList}
+          cellHeight={250}
+          cols={this.getGridListCols()}
+          spacing={10}
+        >
           {movies.map(movie => (
-            <GridListTile key={movie.id} className={classes.gridListTile}>
-              <ReactImageFallback
-                src={getImage(movie.poster_path)}
-                fallbackImage="fallback-image.jpg"
-                initialImage="fallback-image.jpg"
-                alt={movie.title}
-                className={classes.image}
-              />
-
-              <GridListTileBar
-                className={classes.title}
-                title={movie.title}
-                subtitle={<span>{movie.release_date}</span>}
-                actionIcon={
-                  <IconButton className={classes.icon}>
-                    <StarBorderIcon />
-                  </IconButton>
-                }
-              />
-            </GridListTile>
+            <MovieItem key={movie.id} movie={movie} classes={classes} />
           ))}
         </GridList>
       </div>

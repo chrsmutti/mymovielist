@@ -17,14 +17,9 @@ class NavigationBar extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="inherit"
-              noWrap
-            >
+            <Typography className={classes.title} variant="h6" color="inherit">
               <MovieIcon className={classes.movieIcon} /> My Movie List
             </Typography>
 

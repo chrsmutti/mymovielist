@@ -3,6 +3,22 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import React, { Component } from "react";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+  palette: {
+    type: "dark",
+    primary: {
+      main: "#d32f2f",
+    },
+    secondary: {
+      main: "#bf360c",
+    },
+  },
+});
 
 class App extends Component {
   constructor(props) {
@@ -18,10 +34,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavigationBar search={e => this.handleQueryChange(e)} />
-        <LinearProgress hidden={!this.state.searching} variant="query" />
+        <MuiThemeProvider theme={theme}>
+          <NavigationBar search={e => this.handleQueryChange(e)} />
+          <LinearProgress hidden={!this.state.searching} variant="query" />
 
-        <MovieGrid movies={this.state.results} />
+          <MovieGrid movies={this.state.results} />
+        </MuiThemeProvider>
       </div>
     );
   }
