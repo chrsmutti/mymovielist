@@ -1,4 +1,5 @@
 import { service as TMDBService } from "../../services/tmdb";
+import { service as FavoritesService } from "../../services/favorites";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import React, { Component } from "react";
@@ -9,14 +10,19 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { hasNext: true, results: [] };
+    this.state = { hasNext: false, results: FavoritesService.get() };
   }
 
   render() {
     return (
       <div className="App">
         <MuiThemeProvider theme={theme}>
-          <NavigationBar search={q => this.handleQueryChange(q)} />
+          <NavigationBar
+            onFavorites={() =>
+              this.setState({ hasNext: false, results: FavoritesService.get() })
+            }
+            onSearch={q => this.handleQueryChange(q)}
+          />
           <MovieGrid
             movies={this.state.results}
             hasNext={this.state.hasNext}

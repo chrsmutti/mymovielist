@@ -40,7 +40,10 @@ class NavigationBar extends Component {
             >
               <GitHubIcon />
             </IconButton>
-            <IconButton className={classes.iconButton}>
+            <IconButton
+              onClick={() => this.props.onFavorites()}
+              className={classes.iconButton}
+            >
               <StarIcon />
             </IconButton>
             <div className={classes.search}>
@@ -69,13 +72,14 @@ class NavigationBar extends Component {
    */
   async handleQueryChange(e) {
     this.setState({ searching: true });
-    await this.props.search(e.target.value);
+    await this.props.onSearch(e.target.value);
     this.setState({ searching: false });
   }
 }
 
 NavigationBar.propTypes = {
-  search: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
+  onFavorites: PropTypes.func.isRequired,
   classes: PropTypes.object,
 };
 
