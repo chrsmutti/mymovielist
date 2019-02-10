@@ -1,10 +1,15 @@
 {
-  "short_name": "My Movie List",
-  "name": "Keep a list of all your favorite movies.",
+  "short_name": "Movie List",
+  "name": "My Movie List",
   "icons": [
     {
       "src": "icon-small.png",
       "sizes": "128x128 64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "icon-medium.png",
+      "sizes": "192x192",
       "type": "image/x-icon"
     },
     {
