@@ -22,10 +22,16 @@ export default theme => ({
     borderRadius: "10px",
     border: "1px solid #000",
     overflow: "hidden",
+    height: "240px",
+    width: "160px",
+    [theme.breakpoints.up("sm")]: {
+      height: "300px",
+      width: "200px",
+    },
   },
   image: {
-    height: "300px",
-    width: "200px",
+    height: "100%",
+    width: "100%",
     display: "block",
     margin: "0 auto",
   },
@@ -41,12 +47,16 @@ export default theme => ({
     borderRadius: "10px",
     border: "1px solid #000",
     overflow: "hidden",
-    height: "300px",
-    width: "200px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: fade(theme.palette.secondary.main, 0.95),
+    height: "240px",
+    width: "160px",
+    [theme.breakpoints.up("sm")]: {
+      height: "300px",
+      width: "200px",
+    },
   },
   buttonNext: {
     padding: "100%",
@@ -57,7 +67,14 @@ export default theme => ({
     justifyContent: "center",
     flexWrap: "wrap",
   },
-  iconNext: {
+  iconBigger: {
     fontSize: "3rem",
+  },
+  "@keyframes mml-spin": {
+    from: { transform: "rotate(0)" },
+    to: { transform: "rotate(360deg)" },
+  },
+  iconSpin: {
+    animation: "mml-spin 2s infinite",
   },
 });

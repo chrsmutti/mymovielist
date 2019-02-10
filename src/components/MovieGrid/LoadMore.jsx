@@ -3,6 +3,7 @@ import GridListTile from "@material-ui/core/GridListTile";
 import PropTypes from "prop-types";
 import IconButton from "@material-ui/core/IconButton";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import RefreshIcon from "@material-ui/icons/Refresh";
 import Typography from "@material-ui/core/Typography";
 
 class LoadMore extends Component {
@@ -16,6 +17,24 @@ class LoadMore extends Component {
     const { classes } = this.props;
     const { disabled } = this.state;
 
+    let content;
+    if (!disabled) {
+      content = (
+        <div>
+          <NavigateNextIcon classes={{ root: classes.iconBigger }} />
+          <Typography style={{ width: "100%" }} variant="h6">
+            Load more...
+          </Typography>
+        </div>
+      );
+    } else {
+      content = (
+        <RefreshIcon
+          classes={{ root: `${classes.iconBigger} ${classes.iconSpin}` }}
+        />
+      );
+    }
+
     return (
       <GridListTile
         key={"load-more"}
@@ -26,10 +45,7 @@ class LoadMore extends Component {
           classes={{ root: classes.buttonNext, label: classes.buttonNextLabel }}
           onClick={() => this.handleNextClick()}
         >
-          <NavigateNextIcon classes={{ root: classes.iconNext }} />
-          <Typography style={{ width: "100%" }} variant="h6">
-            Load more...
-          </Typography>
+          {content}
         </IconButton>
       </GridListTile>
     );
